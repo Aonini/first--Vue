@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    #box{
+        width: 100px;
+    }
+    #box div span{
+        display: block;
+         border:1px solid #000;
+    }
+    .blue{
+        background: blue;
+    }
+     /* #box div ul{
+         display: none;
+    }  */
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div v-for="list,i in tabs">
+            <span 
+            @click="click(i)"
+            :class="{blue: i===index}"
+            
+            >{{list.title}}</span>
+            <ul :style="{display:  i===index? 'block':'none' }">
+                <!--   这里写错  下一级要写上上一级之后 才能找到下一级 -->
+                <li v-for="list in list.list">{{list.item}}</li>
+            </ul>
+        </div>
+        <!-- <div>
+                <span>黑名单</span>
+                <ul>
+                    <li>大黑</li>
+                    <li>大白</li>
+                    <li>大兰</li>
+                </ul>
+            </div>
+            <div>
+                    <span>好基友</span>
+                    <ul>
+                        <li>大黑</li>
+                        <li>大白</li>
+                        <li>大兰</li>
+                    </ul>
+                </div> -->
+    </div>
+    <script src="./vue.js"></script>
+    <script>
+        //生成一个假的数据   生成div  渲染span  控制里面的ul 显示还是不显示
+        let data={
+            tabs:[
+                {title:"好友",
+                list:[
+                    {item:"小白"},
+                    {item:"小黑"},
+                    {item:"小兰"}
+                ]
+                },
+                {title:"黑名单",
+                list:[
+                    {item:"大黑"},
+                    {item:"大白"},
+                    {item:"大兰"}
+                ]
+                },
+                {title:"好基友",
+                list:[
+                    {item:"大黑"},
+                    {item:"大白"},
+                    {item:"大兰"}
+                ]
+                }
+            ],
+            index:-1,
+            //状态记录
+        }
+        new Vue({
+            el:"#box",
+            data:data,
+            methods:{
+                click(i){
+
+
+                  if(this.index!=-1){
+                    this.index=-1
+                  }else{
+                    this.index=i
+                  } 
+                
+            }
+            }
+            
+        })
+    
+    </script>
+</body>
+</html>

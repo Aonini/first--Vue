@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .red{
+        background: red;
+    }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <!-- 这里面按钮的名字也是数据生成的  随时变化   生成  -->
+        <!-- 这个按钮需要绑定下标  对应的div显示出来 -->
+         <button 
+         v-for="item,i in tabs"
+        :class="{red: currentIndex===i}"
+        @click="click(i)" 
+         >
+         {{item.title}}</button>
+         <div  v-for="item,i in tabs" 
+                :style="{display:i===currentIndex? 'block':'none'}"
+         >
+             <!-- 下一级 这样写 -->
+             <span v-for="item,i in item.list">{{item.span}}</span>
+         </div>
+
+         <!-- <div>
+             <span>娱乐111</span>
+             <span>娱乐111</span>
+             <span>娱乐111</span>
+         </div>
+         <div>
+                <span>新闻</span>
+                <span>新闻</span>
+                <span>新闻</span>
+         </div>
+         <div>
+                <span>体育</span>
+                <span>体育</span>
+                <span>体育</span>
+         </div> -->
+    </div>
+    <script src="./src/vue.js"></script>
+    <script>
+        //先有一个数据
+    let data={
+        tabs:[
+           {title:"娱乐",
+                list:[{
+                    span:"娱乐111"},
+                    {span:"娱乐111"},
+                    {span:"娱乐111"
+                }]
+           },
+           {title:"新闻",
+                list:[{
+                    span:"新闻"},
+                    {span:"新闻"},
+                    {span:"新闻"
+                }]
+           },
+           {title:"体育",
+                list:[{
+                    span:"体育"},
+                    {span:"体育"},
+                    {span:"体育"
+                }]
+           },
+        ],   //    需要记录一个下标  对应下标的元素显示
+         currentIndex:0
+        }
+        new Vue({
+            el:"#box",
+            data:data,
+            methods:{
+                click(i){
+                    //去子级身上的值  用this
+                this.currentIndex=i;    
+            }
+            }
+            
+        })
+
+    </script>
+    
+</body>
+</html>
